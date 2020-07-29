@@ -32,7 +32,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	defer db.Close()
+	db.Close()
+
 
 	// urls.py
 	router := mux.NewRouter()
