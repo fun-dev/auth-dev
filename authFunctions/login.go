@@ -31,7 +31,8 @@ func createToken(user User) (string, error) {
 	tokenString, err := token.SignedString([]byte(secret))
 
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+                 return "", err
 	}
 
 	fmt.Println("-----------------------------")
