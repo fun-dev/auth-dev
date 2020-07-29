@@ -45,7 +45,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	var error Error
 	var jwt JWT
 
-	json.NewDecoder(r.Body).Decode(&user)
+	err := json.NewDecoder(r.Body).Decode(&user)
+	if err != nil {
+	    log.Println(err)
+	    return //関数を終了する
+	}
 
 	if user.Email == "" {
 		error.Message = "Email は必須です．"
