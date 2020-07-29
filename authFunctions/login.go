@@ -30,12 +30,12 @@ func createToken(user User) (string, error) {
 
 	tokenString, err := token.SignedString([]byte(secret))
 
-	fmt.Println("-----------------------------")
-	fmt.Println("tokenString:", tokenString)
-
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println("-----------------------------")
+	fmt.Println("tokenString:", tokenString)
 
 	return tokenString, nil
 }
