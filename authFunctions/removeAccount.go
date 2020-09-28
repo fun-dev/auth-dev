@@ -13,7 +13,7 @@ import (
 func removeAccount(w http.ResponseWriter, r *http.Request) {
 	var user User
 	var error Error
-	var jwt JWT
+	//var jwt JWT
 
 	json.NewDecoder(r.Body).Decode(&user)
 

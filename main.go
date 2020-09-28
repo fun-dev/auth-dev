@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./authFunctions"
+	"github.com/fun-dev/auth-dev/authFunctions"
 
 	"database/sql"
 	"log"
@@ -33,7 +33,6 @@ func main() {
 	}
 
 	db.Close()
-
 
 	// urls.py
 	router := mux.NewRouter()
