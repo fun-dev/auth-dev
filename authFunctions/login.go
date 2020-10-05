@@ -32,7 +32,7 @@ func createToken(user User) (string, error) {
 
 	if err != nil {
 		log.Println(err)
-                 return "", err
+		return "", err
 	}
 
 	fmt.Println("-----------------------------")
@@ -48,8 +48,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
-	    log.Println(err)
-	    return //関数を終了する
+		log.Println(err)
+		return
 	}
 
 	if user.Email == "" {
@@ -69,12 +69,14 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	// データベースに接続
 	db, err := sql.Open("mysql", DBLocation())
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return
 	}
 
 	err = db.Ping()
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return
 	}
 
 	defer db.Close()
@@ -88,7 +90,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			error.Message = "ユーザが存在しません．"
 			errorInResponse(w, http.StatusBadRequest, error)
 		} else {
-			log.Fatal(err)
+			log.Println(err)
+			return
 		}
 	}
 
@@ -104,9 +107,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	token, err := createToken(user)
-
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return
 	}
 
 	w.WriteHeader(http.StatusOK)

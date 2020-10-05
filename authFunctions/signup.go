@@ -36,7 +36,8 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	// パスワードのハッシュを生成
 	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), 10)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return
 	}
 
 	fmt.Println("パスワード: ", user.Password)
@@ -48,12 +49,14 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	// データベースに接続
 	db, err := sql.Open("mysql", DBLocation())
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return
 	}
 
 	err = db.Ping()
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return
 	}
 
 	defer db.Close()

@@ -10,7 +10,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func removeAccount(w http.ResponseWriter, r *http.Request) {
+func RemoveAccount(w http.ResponseWriter, r *http.Request) {
 	var user User
 	var error Error
 
@@ -43,7 +43,7 @@ func removeAccount(w http.ResponseWriter, r *http.Request) {
 
 	defer db.Close()
 
-	// 認証キー(Emal)のユーザー情報をDBから取得
+	// 認証キー(Email)のユーザー情報をDBから取得
 	row := db.QueryRow("SELECT * FROM users WHERE email = ?;", user.Email)
 
 	err = row.Scan(&user.ID, &user.Email, &user.Password)
@@ -60,10 +60,13 @@ func removeAccount(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("hasedPassword: ", hasedPassword)
 
 	err = bcrypt.CompareHashAndPassword([]byte(hasedPassword), []byte(password))
-
 	if err != nil {
 		error.Message = "無効なパスワードです．"
 		errorInResponse(w, http.StatusUnauthorized, error)
 		return
 	}
+
+	row = db.QueryRow("DELETE FROM users WHERE email = ?;", user.Email)
+	log.Println("次のアカウントが削除されました：", user.Email)
+
 }
