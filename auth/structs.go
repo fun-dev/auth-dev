@@ -1,4 +1,4 @@
-package authFunctions
+package auth
 
 type User struct {
 	// 大文字だと Public 扱い

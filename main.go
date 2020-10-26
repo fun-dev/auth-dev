@@ -1,8 +1,6 @@
 package main
 
 import (
-	"./authFunctions"
-
 	"database/sql"
 	"log"
 	"net/http"
@@ -12,21 +10,21 @@ import (
 )
 
 func signup(w http.ResponseWriter, r *http.Request) {
-	authFunctions.Signup(w, r)
+	auth.Signup(w, r)
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
-	authFunctions.Login(w, r)
+	auth.Login(w, r)
 }
 
 func removeAccount(w http.ResponseWriter, r *http.Request) {
-	authFunctions.RemoveAccount(w, r)
+	auth.RemoveAccount(w, r)
 }
 
 var db *sql.DB
 
 func main() {
-	db, err := sql.Open("mysql", authFunctions.DBLocation())
+	db, err := sql.Open("mysql", auth.DBLocation())
 	if err != nil {
 		log.Println(err)
 		return
