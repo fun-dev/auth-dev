@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/fun-dev/auth-dev/tree/master/auth"
+	"github.com/fun-dev/auth-dev/auth"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 )
